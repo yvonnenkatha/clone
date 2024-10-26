@@ -1,0 +1,39 @@
+#include <unordered_map>
+#include <vector>
+class Node {
+public:
+    int val;​&#8203;:contentReference[oaicite:1]{index=1}
+    std::vector<Node*> neighbors;
+    Node() : val(0), neighbors() {}
+    Node(int _val) : val(_val), neighbors() {}​&#8203;:contentReference[oaicite:2]{index=2}
+    Node(int _val, std::vector<Node*> _neighbors) : val(_val), neighbors(_neighbors) {}
+};
+
+class Solution {​&#8203;:contentReference[oaicite:3]{index=3}
+private:
+    std::unordered_map<Node*, Node*> visited;​&#8203;:contentReference[oaicite:4]{index=4}
+
+    Node* dfs(Node* node) {
+        if (!node)
+            return nullptr;​&#8203;:contentReference[oaicite:5]{index=5}
+
+
+        if (visited.find(node) != visited.end())​&#8203;:contentReference[oaicite:6]{index=6}
+            return visited[node];
+
+        Node* clone = new Node(node->val);​&#8203;:contentReference[oaicite:7]{index=7}
+        visited[node] = clone;
+
+        for (Node* neighbor : node->neighbors) {​&#8203;:contentReference[oaicite:8]{index=8}
+            clone->neighbors.push_back(dfs(neighbor));
+        }
+
+        return clone;
+    }
+
+public:​&#8203;:contentReference[oaicite:9]{index=9}
+    Node* cloneGraph(Node* node) {
+        return dfs(node);
+    }
+};
+
